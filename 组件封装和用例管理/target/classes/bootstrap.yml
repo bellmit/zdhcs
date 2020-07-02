@@ -1,0 +1,23 @@
+server:
+  port: 9527
+
+spring:
+  main:
+    allow-bean-definition-overriding: true
+  application:
+    name: case-design
+  cloud:
+    config:
+      profile: dev
+      label: master
+      fail-fast: true
+      discovery:
+        enabled: true
+        serviceId: atp-cloud-config
+eureka:
+  instance:
+    instance-id: ${spring.application.name}:${spring.cloud.client.ip-address}:${server.port}
+    prefer-ip-address: true
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka

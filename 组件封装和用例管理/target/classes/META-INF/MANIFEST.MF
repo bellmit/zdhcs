@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Implementation-Title: case-design
+Implementation-Version: 2.1.10.RELEASE
+Built-By: Bj
+Implementation-Vendor-Id: net.northking.atp
+Build-Jdk: 1.8.0_131
+Implementation-URL: https://projects.spring.io/spring-boot/#/spring-bo
+ ot-starter-parent/case-design
+Created-By: Maven Integration for Eclipse
+
