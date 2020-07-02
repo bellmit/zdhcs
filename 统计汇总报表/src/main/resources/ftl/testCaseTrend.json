@@ -1,0 +1,37 @@
+{
+	"title": {
+	},
+	"legend": {
+		"data": ["总数量", "已完成数量", "未完成数量"],
+		"align": "left"
+	},
+	"backgroundColor": "rgba(255, 255, 255, 1)",
+	"toolbox": {
+	},
+	"tooltip": {},
+	"xAxis": {
+		"data":${xAxis},
+		"silent": false,
+		"splitLine": {
+			"show": false
+		}
+	},
+	"yAxis": {
+		"type": "value",
+        "name": "个数"
+	},
+	"series": [{
+		"data": ${yAxis1},
+		"name": "总数量",
+		"type": "line"
+	}, {
+		"data": ${yAxis2},
+		"name": "已完成数量",
+		"type": "line"
+	}
+	, {
+			"name": "未完成数量",
+			"type": "line",
+			"data": ${yAxis3}
+		}]
+}

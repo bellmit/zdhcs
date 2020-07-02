@@ -1,0 +1,34 @@
+server:
+  port: 9514
+#debug: true
+  tomcat:
+     max-threads: 800
+spring:
+  application:
+    name: atp-data-pool
+  cloud:
+    config:
+      profile: dev
+      label: master
+      discovery:
+        enabled: true
+        serviceId: atp-cloud-config
+
+eureka:
+  instance:
+    prefer-ip-address: true
+    lease-renewal-interval-in-seconds: 5      # 心跳时间，即服务续约间隔时间（缺省为30s）
+    lease-expiration-duration-in-seconds: 10  # 发呆时间，即服务续约到期时间（缺省为90s）
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka
+
+
+logging:
+  level:
+    root: info
+    net.northking.atp: debug
+
+mybatis:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl

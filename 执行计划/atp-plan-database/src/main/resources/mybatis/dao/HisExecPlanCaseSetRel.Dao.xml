@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.northking.atp.db.dao.HisExecPlanCaseSetRelDao">
+  <!-- 请在本文件内添加自定义SQL语句 -->
+  <delete id="batchDeleteByPlanIds" parameterType="java.util.List">
+    DELETE FROM <include refid="Table_Name"/>
+    WHERE
+    PLAN_ID IN
+    <trim prefix="(" suffix=")">
+      <foreach collection="planIds" item="item" index="index" separator="," >
+        #{item}
+      </foreach>
+    </trim>
+  </delete>
+</mapper>

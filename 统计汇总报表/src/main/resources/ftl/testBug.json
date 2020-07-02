@@ -1,0 +1,86 @@
+{
+  "title": {
+},
+"legend": {
+"data": ["新建", "打开", "已分配", "拒绝", "待验证","处理中", "延迟", "已修复", "关闭", "无效","重新打开"],
+"align": "left"
+},
+"backgroundColor": "rgba(255, 255, 255, 1)",
+"toolbox": {
+},
+"tooltip": {},
+"xAxis": {
+"data":${xAxis},
+"axisLabel": {
+"rotate": 30
+},
+"silent": false,
+"splitLine": {
+"show": false
+}
+},
+"yAxis": {
+"name": "个数"
+},
+"series": [
+{
+"name": "新建",
+"type": "bar",
+"stack": "defectSeverity",
+"data": ${yAxis1}
+}, {
+"name": "打开",
+"type": "bar",
+"stack": "defectSeverity",
+"data": ${yAxis2}
+},
+{
+"name": "已分配",
+"type": "bar",
+"stack": "defectSeverity",
+"data": ${yAxis3}
+}, {
+"name": "拒绝",
+"type": "bar",
+"stack": "defectSeverity",
+"data": ${yAxis4}
+},{
+"name": "待验证",
+"type": "bar",
+"stack": "defectSeverity",
+"data": ${yAxis5}
+}, {
+"name": "处理中",
+"type": "bar",
+"stack": "defectSeverity",
+"data": ${yAxis6}
+},{
+"name": "延迟",
+"type": "bar",
+"stack": "defectSeverity",
+"data": ${yAxis7}
+}, {
+"name": "已修复",
+"type": "bar",
+"stack": "defectSeverity",
+"data": ${yAxis8}
+},{
+"name": "关闭",
+"type": "bar",
+"stack": "defectSeverity",
+"data": ${yAxis9}
+}, {
+"name": "无效",
+"type": "bar",
+"stack": "defectSeverity",
+"data": ${yAxis10}
+},{
+"name": "重新打开",
+"type": "bar",
+"stack": "defectSeverity",
+"data": ${yAxis11}
+}
+
+],
+"animationEasing": "elasticOut"
+}

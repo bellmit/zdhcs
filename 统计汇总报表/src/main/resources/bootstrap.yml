@@ -1,0 +1,76 @@
+spring:
+  profiles:
+    active: ${SPRING_PROFILES_ACTIVE:dev}
+  application:
+    name: cloudtest-report
+  jackson:
+    serialization.write_dates_as_timestamps: false
+    default-property-inclusion: non_null
+    date-format: yyyy-MM-dd
+    joda-date-time-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+  cloud:
+    config:
+      label: cloudtest
+      profile: dev
+      discovery:
+        enabled: true
+        service-id: atp-cloud-config
+  main:
+    allow-bean-definition-overriding: true
+
+security:
+  oauth2:
+    resource:
+      filter-order: 3
+
+logging.level.org.springframework.security: ERROR
+logging:
+  level:
+    net.northking.cloudtest.dao: ERROR
+
+report:
+  chart:
+    prepath: /opt/apps/html/bulletin/ #服务器:/opt/apps/html/bulletin/
+    outputJsPath: /opt/software/nodeChart/output.js #服务器:/opt/software/nodeChart/output.js
+
+---
+spring:
+  profiles: local
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka
+  instance:
+    prefer-ip-address: true
+    instance-id: ${spring.application.name}:${spring.cloud.client.ip-address}:${spring.application.instance_id:${server.port}}
+---
+spring:
+  profiles: dev
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka
+  instance:
+    prefer-ip-address: true
+    instance-id: ${spring.application.name}:${spring.cloud.client.ip-address}:${spring.application.instance_id:${server.port}}
+---
+spring:
+  profiles: test
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://user:password123@192.168.0.130:8761/eureka
+  instance:
+    prefer-ip-address: true
+    instance-id: ${spring.application.name}:${spring.cloud.client.ip-address}:${spring.application.instance_id:${server.port}}
+---
+spring:
+  profiles: beijing
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://user:password123@localhost:28761/eureka
+  instance:
+    prefer-ip-address: true
+    instance-id: ${spring.application.name}:${spring.cloud.client.ip-address}:${spring.application.instance_id:${server.port}}

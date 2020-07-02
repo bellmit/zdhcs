@@ -1,0 +1,60 @@
+{
+  "title": {
+  },
+  "color": ["#5793f3", "#d14a61", "#675bba"],
+  "backgroundColor": "rgba(255, 255, 255, 1)",
+  "tooltip": {
+    "trigger": "axis",
+    "axisPointer": {
+      "type": "cross"
+    }
+  },
+  "toolbox": {},
+  "legend": {
+    "data": ["计划进度", "实际进度"]
+  },
+  "grid": {
+    "left": "10%",
+    "right": "10%",
+    "bottom": "10%",
+    "containLabel": true
+  },
+  "xAxis": [{
+    "type": "category",
+    "boundaryGap": false,
+    "axisTick": {
+      "alignWithLabel": true
+    },
+    "axisLine": {
+      "onZero": false
+    },
+    "data": ${xAxis}
+  }, {
+      "type": "category",
+      "boundaryGap": false,
+      "axisTick": {
+        "alignWithLabel": true
+      },
+      "axisLine": {
+        "onZero": false
+      },
+      "data": ${xAxis}
+  }],
+  "yAxis": {
+    "type": "value",
+    "name": "百分比(%)",
+    "nameTextStyle": {
+      "padding": [15, 0]
+    }
+  },
+  "series": [{
+    "name": "计划进度",
+    "type": "line",
+    "xAxisIndex": 1,
+    "data": ${yAxisPlan}
+  }, {
+      "name": "实际进度",
+      "type": "line",
+      "data": ${yAxisActual}
+  }]
+}

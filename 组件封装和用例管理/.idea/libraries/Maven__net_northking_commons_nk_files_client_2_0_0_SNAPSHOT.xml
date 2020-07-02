@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: net.northking.commons:nk-files-client:2.0.0-SNAPSHOT">
+    <CLASSES>
+      <root url="jar://D:/qsssettings/repository/net/northking/commons/nk-files-client/2.0.0-SNAPSHOT/nk-files-client-2.0.0-SNAPSHOT.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://D:/qsssettings/repository/net/northking/commons/nk-files-client/2.0.0-SNAPSHOT/nk-files-client-2.0.0-SNAPSHOT-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://D:/qsssettings/repository/net/northking/commons/nk-files-client/2.0.0-SNAPSHOT/nk-files-client-2.0.0-SNAPSHOT-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

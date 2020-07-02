@@ -1,0 +1,12 @@
+server:
+  port: 9996
+eureka:
+   client:
+     healthcheck:
+       enabled: true
+defaultXml:
+  host: localhost
+  port: 8180
+  path: /httpfiletrans/HttpFileTrans
+
+

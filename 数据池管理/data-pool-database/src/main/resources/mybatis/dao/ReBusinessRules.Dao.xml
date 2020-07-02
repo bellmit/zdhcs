@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.northking.atp.db.dao.ReBusinessRulesDao">
+  <!-- 请在本文件内添加自定义SQL语句 -->
+
+  <select id="queryForLike" resultMap="BaseResultMap" parameterType="net.northking.atp.db.persistent.ReBusinessRules">
+    select
+    <include refid="Base_Column_List" />
+    from
+    <include refid="Table_Name"/>
+    <trim prefix="WHERE" prefixOverrides="AND" >
+      <if test="id != null">
+        AND ID = #{id,jdbcType=VARCHAR}
+      </if>
+      <if test="ruleName != null">
+        AND LOCATE(#{ruleName}, RULE_NAME) > 0
+      </if>
+      <if test="ruleType != null">
+        AND RULE_TYPE = #{ruleType,jdbcType=VARCHAR}
+      </if>
+      <if test="ruleStatus != null">
+        AND RULE_STATUS = #{ruleStatus,jdbcType=VARCHAR}
+      </if>
+      <if test="belongModule != null">
+        AND BELONG_MODULE = #{belongModule,jdbcType=VARCHAR}
+      </if>
+      <if test="belongFunction != null">
+        AND BELONG_FUNCTION = #{belongFunction,jdbcType=VARCHAR}
+      </if>
+      <if test="belongSubfunction != null">
+        AND BELONG_SUBFUNCTION = #{belongSubfunction,jdbcType=VARCHAR}
+      </if>
+      <if test="belongTestItem != null">
+        AND BELONG_TEST_ITEM = #{belongTestItem,jdbcType=VARCHAR}
+      </if>
+      <if test="projectId != null">
+        AND PROJECT_ID = #{projectId,jdbcType=VARCHAR}
+      </if>
+    </trim>
+    ORDER BY CREATE_TIME DESC
+  </select>
+</mapper>

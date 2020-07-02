@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.northking.atp.db.dao.RePlanExecInfoDao">
+    <!-- 请在本文件内添加自定义SQL语句 -->
+    <!--根据计划ID查找最近一条执行记录-->
+    <select id="queryFirstById" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select
+        <include refid="Base_Column_List"/>
+        FROM
+        RE_PLAN_EXEC_INFO PEI
+        WHERE
+        PEI.PLAN_ID = #{planId}
+        ORDER BY
+        PEI.EXEC_IDX DESC
+        LIMIT 1
+    </select>
+
+    <!--查询EXEC_STATUS执行状态不为Finished-->
+    <select id="queryInfoStatusIsNotFinished" parameterType="String" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM
+        `RE_PLAN_EXEC_INFO`
+        WHERE
+        `EXEC_STATUS` <![CDATA[ <> ]]> #{query.execStatus}
+    </select>
+    <!--AND       `PROJECT_ID` <![CDATA[ <> ]]> #{query.projectId}-->
+
+    <resultMap id="CaseSetDetailsMap" type="net.northking.atp.entity.CaseAndSetDetails">
+        <association property="reCaseDesignInfo" javaType="net.northking.atp.db.persistent.ReCaseDesignInfo"
+                     resultMap="caseInfoMap"/>
+        <association property="reCaseSet" javaType="net.northking.atp.db.persistent.ReCaseSet" resultMap="caseSetMap"/>
+    </resultMap>
+
+    <!--根据计划id查询当前计划的所有 jieying.li-->
+    <select id="queryCasesByPlanId" parameterType="java.lang.String"
+            resultMap="CaseSetDetailsMap">
+      SELECT
+        c.ID AS "CASE_ID",
+        c.*,
+        b.ID AS "CASE_SET_ID",
+        b.*
+      FROM
+        RE_CASE_SET_LINK a
+      JOIN
+        RE_CASE_SET b
+      ON
+        a.SET_ID = b.ID
+      JOIN
+        RE_CASE_DESIGN_INFO c
+      ON
+        a.CASE_ID = c.ID
+      JOIN
+        RE_EXEC_PLAN_CASE_SET_REL d
+      ON
+        b.ID = d.CASE_SET
+      WHERE
+        d.PLAN_ID = #{planId}
+     ORDER BY a.LINK_ORDER
+  </select>
+
+    <!--根据计划id查询当前计划的所有数据测试用例，只查用例id chuangsheng.huang-->
+    <select id="queryDataCasesByPlanId" parameterType="java.lang.String"
+            resultMap="CaseSetDetailsMap">
+      SELECT
+        a.CASE_ID AS "CASE_ID",
+        b.ID AS "CASE_SET_ID",
+        b.*
+      FROM
+        RE_CASE_SET_LINK a
+      JOIN
+        RE_CASE_SET b
+      ON
+        a.SET_ID = b.ID
+      JOIN
+        RE_EXEC_PLAN_CASE_SET_REL d
+      ON
+        b.ID = d.CASE_SET
+      WHERE
+        d.PLAN_ID = #{planId}
+     ORDER BY a.LINK_ORDER
+  </select>
+
+    <resultMap id="caseInfoMap" type="net.northking.atp.db.persistent.ReCaseDesignInfo">
+        <!-- 案例主键 -->
+        <result column="CASE_ID" jdbcType="VARCHAR" property="id"/>
+        <!-- 案例编号 -->
+        <result column="CASE_NO" jdbcType="VARCHAR" property="caseNo"/>
+        <!-- 案例名称 -->
+        <result column="CASE_NAME" jdbcType="VARCHAR" property="caseName"/>
+        <!-- 案例类型 -->
+        <result column="CASE_TYPE" jdbcType="VARCHAR" property="caseType"/>
+        <!-- 状态 -->
+        <result column="STATUS" jdbcType="VARCHAR" property="status"/>
+        <!-- 所属项目ID -->
+        <result column="PROJECT_ID" jdbcType="VARCHAR" property="projectId"/>
+        <!-- 所属菜单ID -->
+        <result column="MENU_ID" jdbcType="VARCHAR" property="menuId"/>
+        <!-- 优先级 -->
+        <result column="PRIORITY" jdbcType="VARCHAR" property="priority"/>
+        <!-- 版本号 -->
+        <result column="VERSION" jdbcType="VARCHAR" property="version"/>
+        <!--  -->
+        <result column="CREATE_STAFF" jdbcType="VARCHAR" property="createStaff"/>
+        <!--  -->
+        <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime"/>
+        <!--  -->
+        <result column="MODIFY_STAFF" jdbcType="VARCHAR" property="modifyStaff"/>
+        <!--  -->
+        <result column="MODIFY_TIME" jdbcType="TIMESTAMP" property="modifyTime"/>
+    </resultMap>
+
+    <resultMap id="caseSetMap" type="net.northking.atp.db.persistent.ReCaseSet">
+        <id column="CASE_SET_ID" jdbcType="VARCHAR" property="id"/>
+        <result column="SET_NO" jdbcType="VARCHAR" property="setNo"/>
+        <result column="SET_NAME" jdbcType="VARCHAR" property="setName"/>
+        <result column="SET_STATUS" jdbcType="VARCHAR" property="setStatus"/>
+        <result column="DESCRIPTION" jdbcType="VARCHAR" property="description"/>
+        <result column="EXECUTE_NUMBER" jdbcType="VARCHAR" property="executeNumber"/>
+        <result column="CASE_NUMBER" jdbcType="VARCHAR" property="caseNumber"/>
+        <result column="MODIFY_TIME" jdbcType="TIMESTAMP" property="modifyTime"/>
+        <result column="MODIFY_NAME" jdbcType="VARCHAR" property="modifyName"/>
+        <result column="PROJECT_ID" jdbcType="VARCHAR" property="projectId"/>
+    </resultMap>
+    <!--查询未生成测试报告的执行记录-->
+    <select id="queryExecInfoWithoutUrl" resultMap="BaseResultMap">
+        SELECT
+          *
+        FROM
+          RE_PLAN_EXEC_INFO
+        WHERE
+          REPORT_URL IS NULL
+        AND ( EXEC_RESULT = 'success'
+        OR  EXEC_RESULT = 'fail');
+    </select>
+
+    <delete id="batchDeleteByPlanIds" parameterType="java.util.List">
+        DELETE FROM
+        <include refid="Table_Name"/>
+        WHERE
+        PLAN_ID IN
+        <foreach collection="planIds" item="item" index="index" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </delete>
+
+    <select id="queryByPlanIds" parameterType="java.util.List" resultType="java.lang.String">
+        SELECT
+        ID
+        FROM
+        <include refid="Table_Name"/>
+        WHERE
+        PLAN_ID IN
+        <foreach collection="planIds" item="item" index="index" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+
+</mapper>

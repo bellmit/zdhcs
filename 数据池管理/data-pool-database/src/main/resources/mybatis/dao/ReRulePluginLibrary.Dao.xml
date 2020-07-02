@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.northking.atp.db.dao.ReRulePluginLibraryDao">
+  <!-- 请在本文件内添加自定义SQL语句 -->
+
+  <select id="queryForLike" resultMap="BaseResultMap" parameterType="net.northking.atp.db.persistent.ReRulePluginLibrary">
+    select
+    <include refid="Base_Column_List" />
+    from
+    <include refid="Table_Name"/>
+    <trim prefix="WHERE" prefixOverrides="AND" >
+      <if test="id != null">
+        AND ID = #{id,jdbcType=VARCHAR}
+      </if>
+      <if test="libraryName != null">
+        AND LOCATE(#{libraryName}, LIBRARY_NAME) > 0
+      </if>
+      <if test="uploadStaff != null">
+        AND UPLOAD_STAFF = #{uploadStaff,jdbcType=VARCHAR}
+      </if>
+      <if test="status != null">
+        AND STATUS = #{status,jdbcType=VARCHAR}
+      </if>
+      <if test="isValid != null">
+        AND IS_VALID = #{isValid,jdbcType=VARCHAR}
+      </if>
+      <if test="dataName != null">
+        AND DATA_NAME = #{dataName,jdbcType=VARCHAR}
+      </if>
+      <if test="remark != null">
+        AND REMARK = #{remark,jdbcType=VARCHAR}
+      </if>
+    </trim>
+    ORDER BY UPLOAD_TIME DESC
+  </select>
+</mapper>

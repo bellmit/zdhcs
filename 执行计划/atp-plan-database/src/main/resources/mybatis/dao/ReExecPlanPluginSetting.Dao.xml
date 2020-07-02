@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.northking.atp.db.dao.ReExecPlanPluginSettingDao">
+  <!-- 请在本文件内添加自定义SQL语句 -->
+  <!--批量修改插件配置信息-->
+  <update id="batchUpdateSetting" parameterType="java.util.List">
+    <if test="list!=null">
+      <foreach collection="pluginSettingList" item="pluginSetting" index="index" open="" close="" separator=";">
+        UPDATE RE_EXEC_PLAN_PLUGIN_SETTING
+          <set>
+            PLUGIN_PARAM_VALUE = #{pluginSetting.pluginParamValue},
+            UPDATE_TIME = #{pluginSetting.updateTime},
+            STATUS = #{pluginSetting.status}
+          </set>
+          <where>
+            ID = #{pluginSetting.id}
+          </where>
+      </foreach>
+    </if>
+  </update>
+</mapper>

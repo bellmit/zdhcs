@@ -1,0 +1,45 @@
+{
+  "title": {
+  },
+  "label": {
+    "normal": {
+      "position": "top",
+      "show": true
+    }
+  },
+  "legend": {
+    "data": [
+      "测试用例数量",
+      "需求分析数量"
+    ],
+    "align": "left"
+  },
+  "backgroundColor": "rgba(255, 255, 255, 1)",
+  "toolbox": {},
+  "tooltip": {
+
+  },
+  "xAxis": {
+    "data": ${xAxis},
+    "silent": false,
+    "splitLine": {
+      "show": false
+    }
+  },
+  "yAxis": {
+    "name": "个数"
+  },
+  "series": [
+    {
+      "name": "测试用例数量",
+      "type": "bar",
+      "data": ${y1Axis}
+    },
+    {
+      "name": "需求分析数量",
+      "type": "bar",
+      "data": ${y2Axis}
+    }
+  ],
+  "animationEasing": "elasticOut"
+}

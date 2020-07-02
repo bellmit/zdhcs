@@ -1,0 +1,65 @@
+spring:
+  application:
+    name: cloudtest-project
+  jackson:
+    serialization.write_dates_as_timestamps: false
+    default-property-inclusion: non_null
+    date-format: yyyy-MM-dd
+    joda-date-time-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+  cloud:
+    config:
+      label: cloudtest
+      profile: dev
+      discovery:
+        enabled: true
+        service-id: atp-cloud-config
+  main:
+    allow-bean-definition-overriding: true
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 60000
+---
+spring:
+  profiles: local
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka
+  instance:
+    prefer-ip-address: true
+    instance-id: ${spring.application.name}:${spring.cloud.client.ip-address}:${spring.application.instance_id:${server.port}}
+---
+spring:
+  profiles: dev
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka
+  instance: 
+    prefer-ip-address: true
+    instance-id: ${spring.application.name}:${spring.cloud.client.ip-address}:${server.port}
+---
+spring:
+  profiles: test
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka
+  instance:
+    prefer-ip-address: true
+    instance-id: ${spring.application.name}:${spring.cloud.client.ip-address}:${spring.application.instance_id:${server.port}}
+---
+spring:
+  profiles: beijing
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://user:password123@localhost:28761/eureka
+  instance:
+    prefer-ip-address: true
+    instance-id: ${spring.application.name}:${spring.cloud.client.ip-address}:${spring.application.instance_id:${server.port}}

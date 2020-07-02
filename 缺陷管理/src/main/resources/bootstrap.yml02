@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: cloudtest-testbug
+ 
+server:
+  port: 6006
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka
+ 

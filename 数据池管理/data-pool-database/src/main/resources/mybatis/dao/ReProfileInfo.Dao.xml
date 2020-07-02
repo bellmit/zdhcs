@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.northking.atp.db.dao.ReProfileInfoDao">
+  <!-- 请在本文件内添加自定义SQL语句 -->
+
+  <select id="queryForUpdate" resultMap="BaseResultMap" parameterType="net.northking.atp.db.persistent.ReProfileInfo">
+    select
+    <include refid="Base_Column_List" />
+    from
+    <include refid="Table_Name"/>
+    <trim prefix="WHERE" prefixOverrides="AND" >
+      <if test="id != null">
+        AND ID != #{id,jdbcType=BIGINT}
+      </if>
+      <if test="profile != null">
+        AND PROFILE = #{profile,jdbcType=VARCHAR}
+      </if>
+      <if test="profileDesc != null">
+        AND PROFILE_DESC = #{profileDesc,jdbcType=VARCHAR}
+      </if>
+      <if test="createTime != null">
+        AND CREATE_TIME = #{createTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="createTimeLt != null">
+        AND CREATE_TIME &lt; #{createTimeLt,jdbcType=TIMESTAMP}
+      </if>
+      <if test="createTimeLe != null">
+        AND CREATE_TIME &lt;= #{createTimeLe,jdbcType=TIMESTAMP}
+      </if>
+      <if test="createTimeGt != null">
+        AND CREATE_TIME &gt; #{createTimeGt,jdbcType=TIMESTAMP}
+      </if>
+      <if test="createTimeGe != null">
+        AND CREATE_TIME &gt;= #{createTimeGe,jdbcType=TIMESTAMP}
+      </if>
+      <if test="updateTime != null">
+        AND UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="updateTimeLt != null">
+        AND UPDATE_TIME &lt; #{updateTimeLt,jdbcType=TIMESTAMP}
+      </if>
+      <if test="updateTimeLe != null">
+        AND UPDATE_TIME &lt;= #{updateTimeLe,jdbcType=TIMESTAMP}
+      </if>
+      <if test="updateTimeGt != null">
+        AND UPDATE_TIME &gt; #{updateTimeGt,jdbcType=TIMESTAMP}
+      </if>
+      <if test="updateTimeGe != null">
+        AND UPDATE_TIME &gt;= #{updateTimeGe,jdbcType=TIMESTAMP}
+      </if>
+      <if test="createOp != null">
+        AND CREATE_OP = #{createOp,jdbcType=BIGINT}
+      </if>
+      <if test="updateOp != null">
+        AND UPDATE_OP = #{updateOp,jdbcType=BIGINT}
+      </if>
+      <if test="projectId != null">
+        AND PROJECT_ID = #{projectId,jdbcType=VARCHAR}
+      </if>
+    </trim>
+  </select>
+
+</mapper>

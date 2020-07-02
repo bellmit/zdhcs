@@ -1,0 +1,463 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.northking.atp.db.dao.ReDataPoolInfoDao">
+  <!-- 请在本文件内添加自定义SQL语句 -->
+
+
+  <resultMap id="BaseResultMap2" type="net.northking.atp.db.persistent.ReDataPoolInfoParam">
+    <!-- 主键 -->
+    <result column="ID" jdbcType="BIGINT" property="id"/>
+    <!-- 全局名称 -->
+    <result column="GLOBAL_NAME" jdbcType="VARCHAR" property="globalName"/>
+    <!-- 项目名 -->
+    <result column="PROJECT_ID" jdbcType="VARCHAR" property="projectId"/>
+    <!-- 环境名称 -->
+    <result column="PROFILE_ID" jdbcType="BIGINT" property="profileId"/>
+    <!-- 参数分类 -->
+    <result column="CATALOG" jdbcType="VARCHAR" property="catalog"/>
+    <!-- 参数说明 -->
+    <result column="MEMO" jdbcType="VARCHAR" property="memo"/>
+    <!-- 参数名称 -->
+    <result column="PROP_KEY" jdbcType="VARCHAR" property="propKey"/>
+    <!-- 参数值类型 -->
+    <result column="PROP_VALUE_TYPE" jdbcType="VARCHAR" property="propValueType"/>
+    <!-- 是否细分   0:否   1: 是 -->
+    <result column="IS_DETAILED" jdbcType="INTEGER" property="isDetailed"/>
+    <!-- 创建时间 -->
+    <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime"/>
+    <!-- 修改时间 -->
+    <result column="UPDATE_TIME" jdbcType="TIMESTAMP" property="updateTime"/>
+    <!--  -->
+    <result column="CREATE_OP" jdbcType="BIGINT" property="createOp"/>
+    <!--  -->
+    <result column="UPDATE_OP" jdbcType="BIGINT" property="updateOp"/>
+    <!-- 参数值 -->
+    <result column="PROP_VALUE" jdbcType="VARCHAR" property="propValue"/>
+    <!-- 参数别名 -->
+    <result column="PROP_ALIAS" jdbcType="VARCHAR" property="propAlias"/>
+  </resultMap>
+
+  <sql id="Base_Column_List2">
+    inf.ID
+    ,GLOBAL_NAME
+    ,PROJECT_ID
+    ,PROFILE_ID
+    ,CATALOG
+    ,MEMO
+    ,PROP_KEY
+    ,PROP_VALUE_TYPE
+    ,IS_DETAILED
+    ,inf.CREATE_TIME
+    ,inf.UPDATE_TIME
+    ,inf.CREATE_OP
+    ,inf.UPDATE_OP
+    ,PROP_ALIAS
+    ,v.PROP_VALUE
+    ,PROP_ALIAS
+  </sql>
+  <select id="findDataPoolValueByPrimaryKey" parameterType="Long" resultMap="BaseResultMap2">
+    select
+    inf.ID
+    ,GLOBAL_NAME
+    ,PROJECT_ID
+    ,PROFILE_ID
+    ,CATALOG
+    ,MEMO
+    ,PROP_KEY
+    ,PROP_VALUE_TYPE
+    ,IS_DETAILED
+    ,inf.CREATE_TIME
+    ,inf.UPDATE_TIME
+    ,inf.CREATE_OP
+    ,inf.UPDATE_OP
+    ,v.PROP_VALUE
+    ,PROP_ALIAS
+    from  RE_DATA_POOL_INFO inf,RE_DATA_POOL_VALUE v
+    where inf.ID=v.DATA_POOL_INFO_ID
+    and inf.ID = #{id,jdbcType=BIGINT}
+  </select>
+
+  <delete id="deleteReDataPoolByDataPoolInfoId" parameterType="Long">
+    delete from RE_DATA_POOL_VALUE
+    where DATA_POOL_INFO_ID = #{id,jdbcType=BIGINT}
+  </delete>
+
+  <select id="queryDataPoolValueBy" resultMap="BaseResultMap2" parameterType="net.northking.atp.db.persistent.ReDataPoolInfo">
+    select
+    <include refid="Base_Column_List2" />
+    from  RE_DATA_POOL_INFO inf,RE_DATA_POOL_VALUE v
+
+    <trim prefix="WHERE" prefixOverrides="AND" >
+      AND inf.id=v.data_pool_info_id
+      <if test="id != null">
+        AND ID = #{id,jdbcType=BIGINT}
+      </if>
+      <if test="globalName != null">
+        AND GLOBAL_NAME = #{globalName,jdbcType=VARCHAR}
+      </if>
+      <if test="projectId != null">
+        AND PROJECT_ID = #{projectId,jdbcType=VARCHAR}
+      </if>
+      <if test="profileId != null">
+        AND PROFILE_ID = #{profileId,jdbcType=BIGINT}
+      </if>
+      <if test="catalog != null">
+        AND CATALOG = #{catalog,jdbcType=VARCHAR}
+      </if>
+      <if test="memo != null">
+        AND MEMO = #{memo,jdbcType=VARCHAR}
+      </if>
+      <if test="propKey != null">
+        AND PROP_KEY = #{propKey,jdbcType=VARCHAR}
+      </if>
+      <if test="propValueType != null">
+        AND PROP_VALUE_TYPE = #{propValueType,jdbcType=VARCHAR}
+      </if>
+      <if test="isDetailed != null">
+        AND IS_DETAILED = #{isDetailed,jdbcType=INTEGER}
+      </if>
+      <if test="createTime != null">
+        AND CREATE_TIME = #{createTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="createTimeLt != null">
+        AND CREATE_TIME &lt; #{createTimeLt,jdbcType=TIMESTAMP}
+      </if>
+      <if test="createTimeLe != null">
+        AND CREATE_TIME &lt;= #{createTimeLe,jdbcType=TIMESTAMP}
+      </if>
+      <if test="createTimeGt != null">
+        AND CREATE_TIME &gt; #{createTimeGt,jdbcType=TIMESTAMP}
+      </if>
+      <if test="createTimeGe != null">
+        AND CREATE_TIME &gt;= #{createTimeGe,jdbcType=TIMESTAMP}
+      </if>
+      <if test="updateTime != null">
+        AND UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="updateTimeLt != null">
+        AND UPDATE_TIME &lt; #{updateTimeLt,jdbcType=TIMESTAMP}
+      </if>
+      <if test="updateTimeLe != null">
+        AND UPDATE_TIME &lt;= #{updateTimeLe,jdbcType=TIMESTAMP}
+      </if>
+      <if test="updateTimeGt != null">
+        AND UPDATE_TIME &gt; #{updateTimeGt,jdbcType=TIMESTAMP}
+      </if>
+      <if test="updateTimeGe != null">
+        AND UPDATE_TIME &gt;= #{updateTimeGe,jdbcType=TIMESTAMP}
+      </if>
+      <if test="createOp != null">
+        AND CREATE_OP = #{createOp,jdbcType=BIGINT}
+      </if>
+      <if test="updateOp != null">
+        AND UPDATE_OP = #{updateOp,jdbcType=BIGINT}
+      </if>
+      <if test="propAlias != null">
+        AND PROP_ALIAS = #{propAlias,jdbcType=VARCHAR}
+      </if>
+    </trim>
+  </select>
+
+  <select id="queryForDistinct" resultMap="BaseResultMap" parameterType="net.northking.atp.db.persistent.ReDataPoolInfo">
+    select
+    <include refid="Base_Column_List" />
+    from
+    <include refid="Table_Name"/>
+    <trim prefix="WHERE" prefixOverrides="AND" >
+      <if test="id != null">
+        AND ID = #{id,jdbcType=BIGINT}
+      </if>
+      <if test="globalName != null">
+        AND GLOBAL_NAME = #{globalName,jdbcType=VARCHAR}
+      </if>
+      <if test="globalName == null">
+        AND GLOBAL_NAME is null
+      </if>
+      <if test="projectId != null">
+        AND PROJECT_ID = #{projectId,jdbcType=VARCHAR}
+      </if>
+      <if test="projectId == null">
+        AND PROJECT_ID is null
+      </if>
+      <if test="profileId != null">
+        AND PROFILE_ID = #{profileId,jdbcType=BIGINT}
+      </if>
+
+      <if test="profileId == null">
+        AND PROFILE_ID is null
+      </if>
+      <if test="catalog != null">
+        AND CATALOG = #{catalog,jdbcType=VARCHAR}
+      </if>
+      <if test="memo != null">
+        AND MEMO = #{memo,jdbcType=VARCHAR}
+      </if>
+      <if test="propKey != null">
+        AND PROP_KEY = #{propKey,jdbcType=VARCHAR}
+      </if>
+      <if test="propValueType != null">
+        AND PROP_VALUE_TYPE = #{propValueType,jdbcType=VARCHAR}
+      </if>
+      <if test="isDetailed != null">
+        AND IS_DETAILED = #{isDetailed,jdbcType=INTEGER}
+      </if>
+      <if test="createTime != null">
+        AND CREATE_TIME = #{createTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="createTimeLt != null">
+        AND CREATE_TIME &lt; #{createTimeLt,jdbcType=TIMESTAMP}
+      </if>
+      <if test="createTimeLe != null">
+        AND CREATE_TIME &lt;= #{createTimeLe,jdbcType=TIMESTAMP}
+      </if>
+      <if test="createTimeGt != null">
+        AND CREATE_TIME &gt; #{createTimeGt,jdbcType=TIMESTAMP}
+      </if>
+      <if test="createTimeGe != null">
+        AND CREATE_TIME &gt;= #{createTimeGe,jdbcType=TIMESTAMP}
+      </if>
+      <if test="updateTime != null">
+        AND UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="updateTimeLt != null">
+        AND UPDATE_TIME &lt; #{updateTimeLt,jdbcType=TIMESTAMP}
+      </if>
+      <if test="updateTimeLe != null">
+        AND UPDATE_TIME &lt;= #{updateTimeLe,jdbcType=TIMESTAMP}
+      </if>
+      <if test="updateTimeGt != null">
+        AND UPDATE_TIME &gt; #{updateTimeGt,jdbcType=TIMESTAMP}
+      </if>
+      <if test="updateTimeGe != null">
+        AND UPDATE_TIME &gt;= #{updateTimeGe,jdbcType=TIMESTAMP}
+      </if>
+      <if test="createOp != null">
+        AND CREATE_OP = #{createOp,jdbcType=BIGINT}
+      </if>
+      <if test="updateOp != null">
+        AND UPDATE_OP = #{updateOp,jdbcType=BIGINT}
+      </if>
+      <if test="propAlias != null">
+        AND PROP_ALIAS = #{propAlias,jdbcType=VARCHAR}
+      </if>
+    </trim>
+  </select>
+
+  <select id="queryForUpdate" resultMap="BaseResultMap" parameterType="net.northking.atp.db.persistent.ReDataPoolInfo">
+    select
+    <include refid="Base_Column_List" />
+    from
+    <include refid="Table_Name"/>
+    <trim prefix="WHERE" prefixOverrides="AND" >
+      <if test="id != null">
+        AND ID != #{id,jdbcType=BIGINT}
+      </if>
+      <if test="globalName != null">
+        AND GLOBAL_NAME = #{globalName,jdbcType=VARCHAR}
+      </if>
+      <if test="globalName == null">
+        AND GLOBAL_NAME is null
+      </if>
+      <if test="projectId != null">
+        AND PROJECT_ID = #{projectId,jdbcType=VARCHAR}
+      </if>
+      <if test="projectId == null">
+        AND PROJECT_ID is null
+      </if>
+      <if test="profileId != null">
+        AND PROFILE_ID = #{profileId,jdbcType=BIGINT}
+      </if>
+      <if test="profileId == null">
+        AND PROFILE_ID is null
+      </if>
+      <if test="catalog != null">
+        AND CATALOG = #{catalog,jdbcType=VARCHAR}
+      </if>
+      <if test="memo != null">
+        AND MEMO = #{memo,jdbcType=VARCHAR}
+      </if>
+      <if test="propKey != null">
+        AND PROP_KEY = #{propKey,jdbcType=VARCHAR}
+      </if>
+      <if test="propValueType != null">
+        AND PROP_VALUE_TYPE = #{propValueType,jdbcType=VARCHAR}
+      </if>
+
+      <if test="isDetailed != null">
+        AND IS_DETAILED = #{isDetailed,jdbcType=INTEGER}
+      </if>
+      <if test="createTime != null">
+        AND CREATE_TIME = #{createTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="createTimeLt != null">
+        AND CREATE_TIME &lt; #{createTimeLt,jdbcType=TIMESTAMP}
+      </if>
+      <if test="createTimeLe != null">
+        AND CREATE_TIME &lt;= #{createTimeLe,jdbcType=TIMESTAMP}
+      </if>
+      <if test="createTimeGt != null">
+        AND CREATE_TIME &gt; #{createTimeGt,jdbcType=TIMESTAMP}
+      </if>
+      <if test="createTimeGe != null">
+        AND CREATE_TIME &gt;= #{createTimeGe,jdbcType=TIMESTAMP}
+      </if>
+      <if test="updateTime != null">
+        AND UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="updateTimeLt != null">
+        AND UPDATE_TIME &lt; #{updateTimeLt,jdbcType=TIMESTAMP}
+      </if>
+      <if test="updateTimeLe != null">
+        AND UPDATE_TIME &lt;= #{updateTimeLe,jdbcType=TIMESTAMP}
+      </if>
+      <if test="updateTimeGt != null">
+        AND UPDATE_TIME &gt; #{updateTimeGt,jdbcType=TIMESTAMP}
+      </if>
+      <if test="updateTimeGe != null">
+        AND UPDATE_TIME &gt;= #{updateTimeGe,jdbcType=TIMESTAMP}
+      </if>
+      <if test="createOp != null">
+        AND CREATE_OP = #{createOp,jdbcType=BIGINT}
+      </if>
+      <if test="updateOp != null">
+        AND UPDATE_OP = #{updateOp,jdbcType=BIGINT}
+      </if>
+    </trim>
+  </select>
+
+
+  <select id="queryForPage" resultMap="BaseResultMap" parameterType="net.northking.atp.db.persistent.ReDataPoolInfo">
+    select
+    <include refid="Base_Column_List" />
+    from
+    <include refid="Table_Name"/>
+    <trim prefix="WHERE" prefixOverrides="AND" >
+      <if test="id != null">
+        AND ID = #{id,jdbcType=BIGINT}
+      </if>
+
+      <choose>
+        <when test="globalName != null ">
+          AND GLOBAL_NAME = #{globalName,jdbcType=VARCHAR}
+        </when>
+        <otherwise>
+          AND GLOBAL_NAME is null
+        </otherwise>
+      </choose>
+
+      <choose>
+        <when test="projectId != null">
+          AND PROJECT_ID = #{projectId,jdbcType=VARCHAR}
+        </when>
+        <otherwise>
+          AND PROJECT_ID is null
+        </otherwise>
+      </choose>
+
+      <choose>
+        <when test="profileId != null">
+          AND PROFILE_ID = #{profileId,jdbcType=BIGINT}
+        </when>
+        <otherwise>
+          AND PROFILE_ID is null
+        </otherwise>
+      </choose>
+
+
+      <if test="catalog != null">
+        AND CATALOG = #{catalog,jdbcType=VARCHAR}
+      </if>
+      <if test="memo != null">
+        AND MEMO = #{memo,jdbcType=VARCHAR}
+      </if>
+      <if test="propKey != null">
+
+        AND PROP_KEY like CONCAT('%',#{propKey,jdbcType=VARCHAR},'%')
+
+      </if>
+      <if test="propValueType != null">
+        AND PROP_VALUE_TYPE = #{propValueType,jdbcType=VARCHAR}
+      </if>
+      <if test="isDetailed != null">
+        AND IS_DETAILED = #{isDetailed,jdbcType=INTEGER}
+      </if>
+      <if test="createTime != null">
+        AND CREATE_TIME = #{createTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="createTimeLt != null">
+        AND CREATE_TIME &lt; #{createTimeLt,jdbcType=TIMESTAMP}
+      </if>
+      <if test="createTimeLe != null">
+        AND CREATE_TIME &lt;= #{createTimeLe,jdbcType=TIMESTAMP}
+      </if>
+      <if test="createTimeGt != null">
+        AND CREATE_TIME &gt; #{createTimeGt,jdbcType=TIMESTAMP}
+      </if>
+      <if test="createTimeGe != null">
+        AND CREATE_TIME &gt;= #{createTimeGe,jdbcType=TIMESTAMP}
+      </if>
+      <if test="updateTime != null">
+        AND UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="updateTimeLt != null">
+        AND UPDATE_TIME &lt; #{updateTimeLt,jdbcType=TIMESTAMP}
+      </if>
+      <if test="updateTimeLe != null">
+        AND UPDATE_TIME &lt;= #{updateTimeLe,jdbcType=TIMESTAMP}
+      </if>
+      <if test="updateTimeGt != null">
+        AND UPDATE_TIME &gt; #{updateTimeGt,jdbcType=TIMESTAMP}
+      </if>
+      <if test="updateTimeGe != null">
+        AND UPDATE_TIME &gt;= #{updateTimeGe,jdbcType=TIMESTAMP}
+      </if>
+      <if test="createOp != null">
+        AND CREATE_OP = #{createOp,jdbcType=BIGINT}
+      </if>
+      <if test="updateOp != null">
+        AND UPDATE_OP = #{updateOp,jdbcType=BIGINT}
+      </if>
+      <if test="propAlias != null">
+        AND PROP_ALIAS like CONCAT('%',#{propAlias,jdbcType=VARCHAR},'%')
+      </if>
+    </trim>
+  </select>
+
+  <select id="queryMaxName" parameterType="java.util.HashMap" resultType="java.lang.String">
+    SELECT
+      MAX(PROP_KEY)
+    FROM
+      RE_DATA_POOL_INFO
+    WHERE
+      PROJECT_ID = #{projectId}
+      <if test="profileId != null">
+        AND PROFILE_ID = #{profileId,jdbcType=BIGINT}
+      </if>
+      <if test="profileId == null">
+        AND PROFILE_ID is null
+      </if>
+      AND PROP_KEY LIKE #{propKey}
+  </select>
+
+  <select id="queryIdForInsert" resultMap="BaseResultMap" parameterType="net.northking.atp.db.persistent.ReDataPoolInfo">
+    select
+    <include refid="Base_Column_List" />
+    from
+    <include refid="Table_Name"/>
+    <trim prefix="WHERE" prefixOverrides="AND" >
+      <if test="projectId != null">
+        AND PROJECT_ID = #{projectId,jdbcType=VARCHAR}
+      </if>
+      <if test="propKey != null">
+        AND PROP_KEY = #{propKey,jdbcType=VARCHAR}
+      </if>
+
+      <if test="profileId != null">
+        AND PROFILE_ID = #{profileId,jdbcType=BIGINT}
+      </if>
+      <if test="profileId == null">
+        AND PROFILE_ID is null
+      </if>
+    </trim>
+  </select>
+</mapper>

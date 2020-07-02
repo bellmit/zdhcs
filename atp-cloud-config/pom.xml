@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>1.5.19.RELEASE</version>
+	</parent>
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>net.northking</groupId>
+	<artifactId>atp-cloud-config</artifactId>
+	<version>1.0-SNAPSHOT</version>
+
+	<properties>
+		<!-- The main class to start by executing java -jar -->
+		<start-class>net.northking.atp.ConfigApplication</start-class>
+	</properties>
+
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>copy</id>
+						<phase>package</phase>
+						<goals>
+							<goal>copy-dependencies</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>${project.build.directory}/lib</outputDirectory>
+						</configuration>
+					</execution>
+				</executions>
+				<configuration>
+					<fork>true</fork>
+					<mainClass>net.northking.atp.ConfigApplication</mainClass>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+		</plugins>
+	</build>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-config-server</artifactId>
+			<version>1.4.0.RELEASE</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-eureka</artifactId>
+			<version>1.4.0.RELEASE</version>
+		</dependency>
+
+		<dependency>
+			<groupId>net.northking.atp</groupId>
+			<artifactId>atp-db-persistent</artifactId>
+			<version>1.1.0-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>net.northking.atp</groupId>
+			<artifactId>atp-db-service</artifactId>
+			<version>1.1.0-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>net.northking.atp</groupId>
+			<artifactId>atp-commons-http</artifactId>
+			<version>1.1.0-SNAPSHOT</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.mybatis/mybatis-spring -->
+		<dependency>
+			<groupId>org.mybatis</groupId>
+			<artifactId>mybatis-spring</artifactId>
+			<version>2.0.1</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot -->
+		<!-- <dependency> <groupId>org.springframework.boot</groupId> <artifactId>spring-boot</artifactId> 
+			<version>1.5.19.RELEASE</version> </dependency> -->
+		<dependency>
+			<groupId>io.swagger</groupId>
+			<artifactId>swagger-annotations</artifactId>
+			<version>1.5.20</version>
+		</dependency>
+		<dependency>
+			<groupId>net.northking.atp</groupId>
+			<artifactId>database-core</artifactId>
+			<version>1.0.24</version>
+		</dependency>
+		<dependency>
+			<groupId>net.northking.atp</groupId>
+			<artifactId>database-mybatis</artifactId>
+			<version>1.0.24</version>
+		</dependency>
+		<dependency>
+			<groupId>org.mybatis.spring.boot</groupId>
+			<artifactId>mybatis-spring-boot-starter</artifactId>
+			<version>1.3.2</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-jdbc</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.github.pagehelper</groupId>
+			<artifactId>pagehelper</artifactId>
+			<version>5.1.2</version>
+		</dependency>
+	</dependencies>
+</project>

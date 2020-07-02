@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.northking.atp.db.dao.ReScheduleTaskDao">
+  <!-- 请在本文件内添加自定义SQL语句 -->
+  <!--查询还没生成定时任务的计划-->
+  <select id="queryNotCreateTask" parameterType="net.northking.atp.db.persistent.ReScheduleTask"
+          resultType="net.northking.atp.db.persistent.ReScheduleTask">
+    SELECT
+      *
+    FROM
+      RE_SCHEDULE_TASK
+    WHERE
+      NEXT_EXEC_TIME <![CDATA[<=]]> #{task.nextExecTime}
+    AND
+      TASK_CREATE_TIME IS NULL;
+  </select>
+</mapper>

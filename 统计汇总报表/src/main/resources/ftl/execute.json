@@ -1,0 +1,63 @@
+{
+  "title": {
+  },
+  "label": {
+    "normal": {
+      "position": "top",
+      "show": true
+    }
+  },
+  "legend": {
+    "data": ["无效", "未执行", "失败", "阻塞", "挂起","未完成", "通过"],
+    "align": "left"
+  },
+  "backgroundColor": "rgba(255, 255, 255, 1)",
+  "toolbox": {
+  },
+  "tooltip": {},
+  "xAxis": {
+    "data":${xAxis},
+"silent": false,
+"splitLine": {
+"show": false
+}
+},
+"yAxis": {
+"name": "个数"
+},
+"series": [
+
+{
+"name": "无效",
+"type": "bar",
+"data": ${yAxis1}
+}, {
+"name": "未执行",
+"type": "bar",
+"data": ${yAxis2}
+},
+{
+"name": "失败",
+"type": "bar",
+"data": ${yAxis3}
+}, {
+"name": "阻塞",
+"type": "bar",
+"data": ${yAxis4}
+},{
+"name": "挂起",
+"type": "bar",
+"data": ${yAxis5}
+}, {
+"name": "未完成",
+"type": "bar",
+"data": ${yAxis6}
+},{
+"name": "通过",
+"type": "bar",
+"data": ${yAxis7}
+}
+
+],
+"animationEasing": "elasticOut"
+}

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.northking.atp.db.dao.ReTestEnvInfoDao">
+    <!-- 请在本文件内添加自定义SQL语句 -->
+
+    <select id="queryEnvInfoByOsInfo" parameterType="net.northking.atp.entity.TestEnvInfo" resultMap="BaseResultMap">
+    SELECT
+	 *
+	FROM
+	 RE_TEST_ENV_INFO
+	WHERE
+		OS_INFO_ID IN (
+			SELECT
+				a.ID
+			FROM
+				RE_OS_INFO a
+			WHERE
+				OS_TYPE = #{env.reOsInfo.osType}
+		)
+	AND PROJECT_ID = #{env.projectId};
+  </select>
+</mapper>

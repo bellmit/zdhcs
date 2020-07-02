@@ -1,0 +1,49 @@
+{
+    tooltip: {
+        trigger: 'axis',
+        axisPointer: {
+            type: 'cross',
+            crossStyle: {
+                color: '#999'
+            }
+        }
+    },
+    toolbox: {},
+    legend: {
+        data:['失败','成功']
+    },
+    xAxis: [
+            {
+                type: 'category',
+                data: [#foreach($result in ${list}) '#${result.name}'#if($velocityCount < $list.size()),#end #end],
+                axisPointer: {
+                    type: 'shadow'
+                }
+            }
+    ],
+    yAxis:{},
+    series: [
+            {
+                name:'失败',
+                type:'bar',
+                label: {
+                    normal: {
+                        show: true,
+                        position: 'top'
+                    }
+                },
+                data:[#foreach($result in ${list}) ${result.leftBar}#if($velocityCount < $list.size()),#end #end]
+            },
+            {
+                name:'成功',
+                type:'bar',
+                label: {
+                    normal: {
+                        show: true,
+                        position: 'top'
+                    }
+                },
+                data:[#foreach($result in ${list}) ${result.rightBar} #if($velocityCount < $list.size()),#end #end]
+            }
+    ]
+}

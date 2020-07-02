@@ -1,0 +1,40 @@
+{
+	"title": {
+		"text": "图示: 根据角色显示人数",
+		"padding":  [10,0,0,400]
+	},
+	"tooltip": {
+		"trigger": "item",
+		"triggerOn": "mousemove"
+	},
+	"backgroundColor": "rgba(255, 255, 255, 1)",
+	"series": [{
+		"type": "tree",
+		"data":${xAxis},
+		"top": "1%",
+		"left": "15%",
+		"bottom": "1%",
+		"right": "26%",
+		"symbolSize": 7,
+		"label": {
+			"normal": {
+				"position": "left",
+				"verticalAlign": "middle",
+				"align": "right",
+				"fontSize": 20
+			}
+		},
+		"leaves": {
+			"label": {
+				"normal": {
+					"position": "right",
+					"verticalAlign": "middle",
+					"align": "left"
+				}
+			}
+		},
+		"expandAndCollapse": true,
+		"animationDuration": 550,
+		"animationDurationUpdate": 750
+	}]
+}

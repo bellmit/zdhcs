@@ -1,0 +1,38 @@
+{
+	"title": {
+	},
+	"legend": {
+		"data": ["总数量", "已解决数量", "未解决数量"],
+		"align": "left",
+		"padding":  [0,0,0,400]
+	},
+	"backgroundColor": "rgba(255, 255, 255, 1)",
+	"toolbox": {
+	},
+	"tooltip": {},
+	"xAxis": {
+		"data":${xAxis},
+		"silent": false,
+		"splitLine": {
+			"show": false
+		}
+	},
+	"yAxis": {
+		"type": "value",
+        "name": "个数"
+	},
+	"series": [{
+		"data": ${yAxis1},
+		"name": "未解决数量",
+		"type": "line"
+	}, {
+		"data": ${yAxis2},
+		"name": "已解决数量",
+		"type": "line"
+	}
+	, {
+			"name": "总数量",
+			"type": "line",
+			"data": ${yAxisTotal}
+		}]
+}

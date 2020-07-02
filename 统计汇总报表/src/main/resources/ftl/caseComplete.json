@@ -1,0 +1,128 @@
+{
+  "tooltip": {},
+  "toolbox": {},
+  "backgroundColor": "rgba(255, 255, 255, 1)",
+  "title": [{
+  }, {
+    "text": "测试人员完成情况",
+    "x": "79%",
+    "textAlign": "center"
+  }, {
+    "text": "模块完成情况",
+    "x": "79%",
+    "y": "50%",
+    "textAlign": "center"
+  }],
+  "grid": [{
+    "top": 50,
+    "width": "50%",
+    "bottom": "45%",
+    "left": 10,
+    "containLabel": true
+  }, {
+    "top": "55%",
+    "width": "50%",
+    "bottom": 0,
+    "left": 10,
+    "containLabel": true
+  }],
+  "xAxis": [{
+    "type": "value",
+    "splitLine": {
+      "show": false
+    },
+    "name": "个数"
+  }, {
+    "type": "value",
+    "gridIndex": 1,
+    "splitLine": {
+      "show": false
+    },
+    "name": "个数"
+  }],
+  "yAxis": [{
+    "type": "category",
+    "data": ${yUserAxis},
+    "axisLabel":{
+      "interval": 0,
+      "rotate": 30
+    },
+    "splitLine": {
+      "show": false
+    }
+    }, {
+      "gridIndex": 1,
+      "type": "category",
+      "data": ${yModuleAxis},
+    "axisLabel": {
+      "interval": 0,
+      "rotate": 30
+    },
+    "splitLine": {
+      "show": false
+    }
+    }],
+  "series": [{
+    "type": "bar",
+    "barMaxWidth": "50px",
+    "stack": "chart",
+    "z": 3,
+    "label": {
+      "normal": {
+        "position": "right",
+        "show": true
+      }
+    },
+    "data": ${xUserAxis}
+  }, {
+      "type": "bar",
+      "barMaxWidth": "50px",
+      "stack": "chart",
+      "silent": true,
+      "itemStyle": {
+        "normal": {
+          "color": "#eee"
+        }
+      },
+      "data":${xUserAxis1}
+  },{
+      "type": "bar",
+      "barMaxWidth": "50px",
+      "stack": "component",
+      "xAxisIndex": 1,
+      "yAxisIndex": 1,
+      "z": 3,
+      "label": {
+        "normal": {
+          "position": "right",
+          "show": true
+        }
+      },
+      "data": ${xModuleAxis}
+  }, {
+      "type": "bar",
+      "barMaxWidth": "50px",
+      "stack": "component",
+      "silent": true,
+      "xAxisIndex": 1,
+      "yAxisIndex": 1,
+      "itemStyle": {
+        "normal": {
+          "color": "#eee"
+        }
+      },
+      "data": ${xModuleAxis1}
+  }, {
+      "type": "pie",
+      "radius": [0, "30%"],
+      "label": {},
+      "center": ["79%", "25%"],
+      "data": ${userChart}
+  }, {
+      "type": "pie",
+      "radius": [0, "30%"],
+      "label": {},
+      "center": ["79%", "78%"],
+      "data": ${moduleChart}
+  }]
+}
