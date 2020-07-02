@@ -1,0 +1,39 @@
+server:
+  port: 8030
+
+eureka:
+  instance:
+    instance-id: ${spring.cloud.client.ipAddress}:${server.port}
+    prefer-ip-address: true
+  client:
+    serviceUrl:
+      defaultZone: http://user:password123@10.31.1.86:8761/eureka
+
+
+spring:
+  profiles:
+    active: dev
+  application:
+    name: atp-cloud-config
+  cloud:
+    config:
+      server:
+        databases: true
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://10.31.1.88:3306/atp_repo?useUnicode=true&characterEncoding=utf-8&useSSL=false
+    username: root
+    password: northking2020
+
+mybatis:
+  type-aliases-package: net.northking.atp.db.persistent
+  configurationProperties:
+    DB_atp_repo: atp_repo
+  mapper-locations: classpath:mybatis/mapper/*.xml, classpath:mybatis/dao/*.xml
+
+logging:
+  level:
+    root: INFO
+    net.northking.atp: DEBUG
+
+
