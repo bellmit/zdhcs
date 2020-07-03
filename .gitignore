@@ -5,3 +5,4 @@ atp-cloud-config/target/classes/net/northking/atp/config/environment/DatabasesEn
 atp-cloud-config/target/
 atp-cloud-eureka/target/
 组件封装和用例管理/target/
+缺陷管理/target/
