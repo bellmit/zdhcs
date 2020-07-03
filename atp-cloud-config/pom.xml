@@ -17,7 +17,7 @@
 		<start-class>net.northking.atp.ConfigApplication</start-class>
 	</properties>
 
-<!-- 
+
 	<build>
 		<plugins>
 			 <plugin>
@@ -46,7 +46,7 @@
 			</plugin> 
 		</plugins>
 	</build>
- -->
+ 
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>

@@ -1,1 +1,7 @@
 /.metadata/
+atp-cloud-config/target/atp-cloud-config-1.0-SNAPSHOT.jar
+atp-cloud-config/target/classes/net/northking/atp/ConfigApplication.class
+atp-cloud-config/target/classes/net/northking/atp/config/environment/DatabasesEnvironmentRepository.class
+atp-cloud-config/target/
+atp-cloud-eureka/target/
+组件封装和用例管理/target/
