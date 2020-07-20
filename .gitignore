@@ -8,3 +8,7 @@ atp-cloud-eureka/target/
 缺陷管理/target/
 /.recommenders/
 统计汇总报表/target/
+执行计划/atp-plan-common/target/
+执行计划/atp-plan-database/target/
+执行计划/atp-plan/target/classes/net/northking/atp/schedule/TemplateDeleteSchedule.class
+执行计划/atp-plan/target/
