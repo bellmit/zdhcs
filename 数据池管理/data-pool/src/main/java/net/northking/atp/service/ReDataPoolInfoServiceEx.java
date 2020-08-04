@@ -22,7 +22,7 @@ public interface ReDataPoolInfoServiceEx
    public  List<ReDataPoolInfo> queryForUpdate(ReDataPoolInfo var1);
     public List<ReDataPoolInfo> queryForDistinct(ReDataPoolInfo var1);
     public int deleteReDataPoolByDataPoolInfoId(Object id) ;
-    public void delete( Long lid);
+    public void delete(String lid);
     public void update(ReDataPoolInfoParam target);
     public void insert(ReDataPoolInfoParam target);
     public ReDataPoolInfoParam findDataPoolValueByPrimaryKey(Object var1);

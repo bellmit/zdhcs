@@ -14,6 +14,7 @@ import net.northking.atp.db.persistent.ReProfileInfo;
 import net.northking.atp.db.service.ReProfileInfoService;
 import net.northking.atp.service.ReDataPoolInfoServiceEx;
 import net.northking.atp.service.ReProfileInfoServiceEx;
+import net.northking.atp.util.FunctionTools;
 import net.northking.db.OrderBy;
 import net.northking.db.Pagination;
 import net.northking.db.mybatis.SqlOrderBy;
@@ -22,6 +23,7 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 /**
 * 描述环境的基础信息 API
@@ -39,10 +41,12 @@ public class ReProfileInfoControllerEx
    * 描述环境的基础信息 数据库持久层服务
    */
   @Autowired
-  private ReProfileInfoService service;
+  private ReProfileInfoService reProfileInfoService;
 
   @Autowired
   private ReProfileInfoServiceEx reProfileInfoServiceEx;
+  @Autowired
+  private FunctionTools functionTools;
   /**
    * 新增 描述环境的基础信息
    *
@@ -58,13 +62,15 @@ public class ReProfileInfoControllerEx
     ReProfileInfo param=new ReProfileInfo();
     param.setProfile(target.getProfile());
     param.setProjectId(target.getProjectId());
-    List<ReProfileInfo> reProfileInfoList= service.query(param);
+    List<ReProfileInfo> reProfileInfoList= reProfileInfoService.query(param);
     if(reProfileInfoList!=null && reProfileInfoList.size()>0){
       ResultWrapper<ReProfileInfo> result=new ResultWrapper<ReProfileInfo>();
       result.fail("1", "项目的环境"+target.getProfile()+"已经存在!");
       return result;
     }
-    service.insert(target);
+
+    target.setId(functionTools.getUUID());
+    reProfileInfoService.insert(target);
     return new ResultWrapper<ReProfileInfo>().success(target);
   }
 
@@ -91,8 +97,8 @@ public class ReProfileInfoControllerEx
       result.fail("1", "项目的环境"+target.getProfile()+"已经存在!");
       return result;
     }
-    service.updateByPrimaryKey(target);
-    ReProfileInfo newOne = service.findByPrimaryKey(target);
+    reProfileInfoService.updateByPrimaryKey(target);
+    ReProfileInfo newOne = reProfileInfoService.findByPrimaryKey(target);
     return new ResultWrapper<ReProfileInfo>().success(newOne);
   }
 
@@ -108,16 +114,13 @@ public class ReProfileInfoControllerEx
           produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
   public ResultWrapper deleteByPrimaryKey(@RequestParam("id") String id)
   {
-
-    Long lid=0l;
     if(id!=null && !"".equals(id)){
-      lid=Long.parseLong(id);
+      reProfileInfoService.deleteByPrimaryKey(id);
     }else{
       ResultWrapper<ReDataPoolInfo> result=new ResultWrapper<ReDataPoolInfo>();
       result.fail("1", "请传入参数ID ");
       return result;
     }
-    service.deleteByPrimaryKey(lid);
     return new ResultWrapper().success();
   }
 
@@ -133,7 +136,7 @@ public class ReProfileInfoControllerEx
           consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
   public ResultWrapper<ReProfileInfo> queryByPrimaryKey(@RequestBody ReProfileInfo target)
   {
-    ReProfileInfo result = service.findByPrimaryKey(target.getId());
+    ReProfileInfo result = reProfileInfoService.findByPrimaryKey(target.getId());
     return new ResultWrapper<ReProfileInfo>().success(result);
   }
 }

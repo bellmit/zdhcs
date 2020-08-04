@@ -1,9 +1,17 @@
 package net.northking.atp.consumer;
 
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.util.Date;
-
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import net.northking.atp.db.enums.RuEngineJobStatus;
+import net.northking.atp.db.persistent.RePlanExecInfo;
+import net.northking.atp.db.persistent.RuEngineJob;
+import net.northking.atp.db.service.RePlanExecInfoService;
+import net.northking.atp.db.service.RuEngineJobService;
+import net.northking.atp.entity.ExecTaskEntity;
+import net.northking.atp.mq.RabbitMQEndpoint;
+import net.northking.atp.utils.UUIDUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
@@ -13,18 +21,9 @@ import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.ObjectMapper;
-
-import net.northking.atp.db.enums.RuEngineJobStatus;
-import net.northking.atp.db.persistent.RePlanExecInfo;
-import net.northking.atp.db.persistent.RuEngineJob;
-import net.northking.atp.db.service.RuEngineJobService;
-import net.northking.atp.entity.ExecTaskEntity;
-import net.northking.atp.mq.RabbitMQEndpoint;
-import net.northking.atp.utils.UUIDUtil;
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.util.Date;
 
 @Component
 public class PlanExecInfoConsumer {

@@ -48,6 +48,19 @@ public class ExecPlanController {
         logger.info("请求的客户机IP地址 --> {}", this.request.getRemoteAddr());
         logger.info("请求的web服务器的ip地址 --> {}", this.request.getLocalAddr());
     }
+    
+    /**
+     * 执行计划jar包接口 测试
+     *
+     * @param id
+     * @return
+     */
+    @ApiOperation(value = "执行计划jar包接口 测试", notes = "执行计划jar包接口 测试")
+    @RequestMapping(value = "/test/{id}.json", method = {RequestMethod.GET})
+    public String insertExecPlan(@PathVariable String id) {
+    	logger.info("执行计划jar包接口 测试 输入的id为--{}",id);
+    	return id;
+    }
 
     /**
      * 新增测试执行计划

@@ -34,6 +34,8 @@ public class DataPoolServiceImpl implements DataPoolService {
     private ReDataPoolValueService reDataPoolValueService;
     @Autowired
     private DataPoolService dataPoolService;
+    @Autowired
+    private FunctionTools functionTools;
     /**
      * 在数据池总览表中插入数据记录
      * @return
@@ -136,7 +138,7 @@ public class DataPoolServiceImpl implements DataPoolService {
     @Transactional
     @Override
     public void copyStaticData(InterfaceDataPoolCopy target) {
-        for(Long id : target.getIdList()){
+        for(String id : target.getIdList()){
             //查询数据
             ReDataPoolInfo dataInfo =  reDataPoolInfoService.findByPrimaryKey(id);//静态数据信息
             ReDataPoolValue values = new ReDataPoolValue();
@@ -164,34 +166,36 @@ public class DataPoolServiceImpl implements DataPoolService {
             }else {
                 newName = name;
             }
-            dataInfo.setId(null);
+
+            String dataInfoId = functionTools.getUUID();
+            dataInfo.setId(dataInfoId);
             dataInfo.setProfileId(target.getProfileId());
             dataInfo.setPropKey(newName);
             dataInfo.setCreateTime(new Date());
             dataInfo.setUpdateTime(new Date());
             reDataPoolInfoService.insert(dataInfo);
 
-            ReDataPoolInfo exitsParam=new ReDataPoolInfo();
-            exitsParam.setProjectId(target.getProjectId());
-            exitsParam.setPropKey(newName);
-            if(target.getProfileId() != null){
-                exitsParam.setProfileId(target.getProfileId());
-            }
-            List<ReDataPoolInfo> reDataPoolInfoListExist = reDataPoolInfoService.queryIdForInsert(exitsParam);
-            if(reDataPoolInfoListExist!=null && reDataPoolInfoListExist.size()>0){
-                ReDataPoolInfo currentData =  reDataPoolInfoListExist.get(0);
-                dataInfo.setId(currentData.getId());
-            }
+//            ReDataPoolInfo exitsParam=new ReDataPoolInfo();
+//            exitsParam.setProjectId(target.getProjectId());
+//            exitsParam.setPropKey(newName);
+//            if(target.getProfileId() != null){
+//                exitsParam.setProfileId(target.getProfileId());
+//            }
+//            List<ReDataPoolInfo> reDataPoolInfoListExist = reDataPoolInfoService.queryIdForInsert(exitsParam);
+//            if(reDataPoolInfoListExist!=null && reDataPoolInfoListExist.size()>0){
+//                ReDataPoolInfo currentData =  reDataPoolInfoListExist.get(0);
+//                dataInfo.setId(currentData.getId());
+//            }
 
             for(ReDataPoolValue value : dataValues){
-                value.setId(null);
+                value.setId(functionTools.getUUID());
                 value.setDataPoolInfoId(dataInfo.getId());
                 reDataPoolValueService.insert(value);
             }
 
             //zcy 测试——增加数据池记录
             ReDataPool dataPool = new ReDataPool();
-            dataPool.setDataId(String.valueOf(dataInfo.getId()));
+            dataPool.setDataId(dataInfo.getId());
             dataPool.setDataName(dataInfo.getPropKey());
             dataPool.setProjectId(dataInfo.getProjectId());
             dataPool.setDataFalg("1");

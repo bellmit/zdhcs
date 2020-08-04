@@ -2,6 +2,7 @@ package net.northking.atp.util;
 
 import com.google.gson.Gson;
 import net.northking.atp.rule.core.RuleLibraryManager;
+import org.springframework.stereotype.Component;
 
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -10,6 +11,7 @@ import java.util.*;
  * 工具类
  * Created by Administrator on 2019/7/16 0016.
  */
+@Component
 public class FunctionTools {
     /**
      * 获取当前时间

@@ -17,6 +17,7 @@ import net.northking.db.Pagination;
 import net.northking.db.mybatis.SqlOrderBy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -45,7 +46,6 @@ public class HisCaseSetController
    */
   @Autowired
   private HisCaseSetService service;
-
 
   /**
    * 新增 测试案例集历史表

@@ -16,6 +16,7 @@ import net.northking.atp.db.persistent.ReDataPoolInfoParam;
 import net.northking.atp.db.persistent.ReDataPoolValue;
 import net.northking.atp.service.DataPoolService;
 import net.northking.atp.service.ReDataPoolInfoServiceEx;
+import net.northking.atp.util.FunctionTools;
 import net.northking.db.DefaultPagination;
 import net.northking.db.OrderBy;
 import net.northking.db.Pagination;
@@ -45,6 +46,8 @@ private static final Logger logger = LoggerFactory.getLogger(ReDataPoolInfoServi
   private ReDataPoolValueDao reDataPoolValueDao;
   @Autowired
   private DataPoolService dataPoolService;
+  @Autowired
+  private FunctionTools functionTools;
 
 // ----      The End by Generator     ----//
 
@@ -68,47 +71,48 @@ private static final Logger logger = LoggerFactory.getLogger(ReDataPoolInfoServi
   }
   @Transactional
   public void insert(ReDataPoolInfoParam target){
+    String id = functionTools.getUUID();
+    target.setId(id);
     if(target.getGlobalName()!=null && !"".equals(target.getGlobalName())){
-
       reDataPoolInfoDao.insert(target);
-      //取到刚插入数据的ID
-      ReDataPoolInfo exitsParam=new ReDataPoolInfo();
-      exitsParam.setGlobalName(target.getGlobalName());
-      exitsParam.setPropKey(target.getPropKey());
-      List<ReDataPoolInfo> reDataPoolInfoListExist = reDataPoolInfoDao.query(exitsParam);
-      if(reDataPoolInfoListExist!=null && reDataPoolInfoListExist.size()>0){
-        ReDataPoolInfo currentData=  reDataPoolInfoListExist.get(0);
-        target.setId(currentData.getId());
-      }
+//      //取到刚插入数据的ID
+//      ReDataPoolInfo exitsParam=new ReDataPoolInfo();
+//      exitsParam.setGlobalName(target.getGlobalName());
+//      exitsParam.setPropKey(target.getPropKey());
+//      List<ReDataPoolInfo> reDataPoolInfoListExist = reDataPoolInfoDao.query(exitsParam);
+//      if(reDataPoolInfoListExist!=null && reDataPoolInfoListExist.size()>0){
+//        ReDataPoolInfo currentData=  reDataPoolInfoListExist.get(0);
+//        target.setId(currentData.getId());
+//      }
     }else if(target.getProjectId()!=null && !"".equals(target.getProjectId()) && (target.getProfileId()==null ||"".equals(target.getProfileId()))){
 
 
       reDataPoolInfoDao.insert(target);
-      //取到刚插入数据的ID
-      ReDataPoolInfo exitsParam=new ReDataPoolInfo();
-      exitsParam.setProjectId(target.getProjectId());
-
-      exitsParam.setPropKey(target.getPropKey());
-      List<ReDataPoolInfo> reDataPoolInfoListExist = queryForDistinct(exitsParam);
-      if(reDataPoolInfoListExist!=null && reDataPoolInfoListExist.size()>0){
-        ReDataPoolInfo currentData=  reDataPoolInfoListExist.get(0);
-        target.setId(currentData.getId());
-      }
+//      //取到刚插入数据的ID
+//      ReDataPoolInfo exitsParam=new ReDataPoolInfo();
+//      exitsParam.setProjectId(target.getProjectId());
+//
+//      exitsParam.setPropKey(target.getPropKey());
+//      List<ReDataPoolInfo> reDataPoolInfoListExist = queryForDistinct(exitsParam);
+//      if(reDataPoolInfoListExist!=null && reDataPoolInfoListExist.size()>0){
+//        ReDataPoolInfo currentData=  reDataPoolInfoListExist.get(0);
+//        target.setId(currentData.getId());
+//      }
     }else{
       //本项目、环境；相同使用范围的测试参数名称不可重复
 
 
       reDataPoolInfoDao.insert(target);
       //取到刚插入数据的ID
-      ReDataPoolInfo exitsParam=new ReDataPoolInfo();
-      exitsParam.setProjectId(target.getProjectId());
-      exitsParam.setProfileId(target.getProfileId());
-      exitsParam.setPropKey(target.getPropKey());
-      List<ReDataPoolInfo> reDataPoolInfoListExist = reDataPoolInfoDao.query(exitsParam);
-      if(reDataPoolInfoListExist!=null && reDataPoolInfoListExist.size()>0){
-        ReDataPoolInfo currentData=  reDataPoolInfoListExist.get(0);
-        target.setId(currentData.getId());
-      }
+//      ReDataPoolInfo exitsParam=new ReDataPoolInfo();
+//      exitsParam.setProjectId(target.getProjectId());
+//      exitsParam.setProfileId(target.getProfileId());
+//      exitsParam.setPropKey(target.getPropKey());
+//      List<ReDataPoolInfo> reDataPoolInfoListExist = reDataPoolInfoDao.query(exitsParam);
+//      if(reDataPoolInfoListExist!=null && reDataPoolInfoListExist.size()>0){
+//        ReDataPoolInfo currentData=  reDataPoolInfoListExist.get(0);
+//        target.setId(currentData.getId());
+//      }
     }
 
     ReDataPoolValue reDataPoolValueParam=new ReDataPoolValue();
@@ -116,20 +120,24 @@ private static final Logger logger = LoggerFactory.getLogger(ReDataPoolInfoServi
     reDataPoolValueDao.deleteByExample(reDataPoolValueParam);
     //新值
     ReDataPoolValue reDataPoolValueNew=new ReDataPoolValue();
+    // 2020.05.13 去掉了id自增，增加设置id，jieying.li
+    reDataPoolValueNew.setId(functionTools.getUUID());
     reDataPoolValueNew.setPropValue(target.getPropValue());
     reDataPoolValueNew.setDataPoolInfoId(target.getId());
     reDataPoolValueDao.insert(reDataPoolValueNew);
 
     //zcy 测试——增加数据池记录
     ReDataPool dataPool = new ReDataPool();
-    dataPool.setDataId(String.valueOf(target.getId()));
+    // 2020.05.13 去掉了id自增，增加设置id，jieying.li
+    dataPool.setId(functionTools.getUUID());
+    dataPool.setDataId(target.getId());
     dataPool.setDataName(target.getPropKey());
     dataPool.setProjectId(target.getProjectId());
     dataPool.setDataFalg("1");
     dataPoolService.saveDataRecord(dataPool);
   }
   @Transactional
-  public void delete( Long lid){
+  public void delete( String lid){
     reDataPoolInfoDao.deleteByPrimaryKey(lid);
     deleteReDataPoolByDataPoolInfoId(lid);
   }
@@ -142,6 +150,7 @@ private static final Logger logger = LoggerFactory.getLogger(ReDataPoolInfoServi
     reDataPoolValueDao.deleteByExample(reDataPoolValueParam);
     //新值
     ReDataPoolValue reDataPoolValueNew=new ReDataPoolValue();
+    reDataPoolValueNew.setId(functionTools.getUUID());
     reDataPoolValueNew.setPropValue(target.getPropValue());
     reDataPoolValueNew.setDataPoolInfoId(target.getId());
     reDataPoolValueDao.insert(reDataPoolValueNew);

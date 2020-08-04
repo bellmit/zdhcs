@@ -298,22 +298,20 @@ public class ReDataPoolInfoControllerEx {
     {
         logger.info("findDataPoolValueByPrimaryKey输入参数:"+id);
         ResultWrapper<ReDataPoolInfoParam> resultWrapper = new ResultWrapper<ReDataPoolInfoParam>();
-        Long lid=0l;
+
         if(id!=null && !"".equals(id)){
-            lid=Long.parseLong(id);
+            ReDataPoolInfoParam record = reDataPoolInfoServiceEx.findDataPoolValueByPrimaryKey(id);
+            if (record == null)
+            {
+                resultWrapper.fail("0000001", "不存在[主键=" + id + "]的记录！");
+            } else
+            {
+                resultWrapper.success(record);
+            }
         }else{
             ResultWrapper<ReDataPoolInfoParam> result=new ResultWrapper<ReDataPoolInfoParam>();
             result.fail("1", "请传入参数ID ");
             return result;
-        }
-
-        ReDataPoolInfoParam record = reDataPoolInfoServiceEx.findDataPoolValueByPrimaryKey(lid);
-        if (record == null)
-        {
-            resultWrapper.fail("0000001", "不存在[主键=" + id + "]的记录！");
-        } else
-        {
-            resultWrapper.success(record);
         }
         return resultWrapper;
     }
@@ -330,15 +328,13 @@ public class ReDataPoolInfoControllerEx {
     public ResultWrapper deleteByPrimaryKey(@RequestParam("id") String id)
     {
         logger.info("deleteByPrimaryKey输入参数:"+id);
-        Long lid=0l;
-        if(id!=null && !"".equals(id)){
-            lid=Long.parseLong(id);
-        }else{
+        if(id==null && "".equals(id)){
             ResultWrapper<ReDataPoolInfo> result=new ResultWrapper<ReDataPoolInfo>();
             result.fail("1", "请传入参数ID ");
             return result;
         }
-        reDataPoolInfoServiceEx.delete(lid);
+
+        reDataPoolInfoServiceEx.delete(id);
       //  reDataPoolInfoService.deleteByPrimaryKey(lid);
       //  reDataPoolInfoServiceEx.deleteReDataPoolByDataPoolInfoId(lid);
         //zcy-删除数据记录

@@ -12,3 +12,17 @@ atp-cloud-eureka/target/
 执行计划/atp-plan-database/target/
 执行计划/atp-plan/target/classes/net/northking/atp/schedule/TemplateDeleteSchedule.class
 执行计划/atp-plan/target/
+atp-test-unity/target/atp-test-unity-2.1.10-SNAPSHOT.jar
+atp-test-unity/.settings/org.eclipse.core.resources.prefs
+atp-test-unity/.settings/org.eclipse.m2e.core.prefs
+atp-test-unity/.settings/
+atp-test-unity/target/
+demo/
+数据池管理/.idea/
+数据池管理/data-pool/target/
+项目管理/target/
+执行计划/.idea/
+执行计划_copy/
+数据池管理/data-pool-database/target/
+数据池管理/data-pool/.settings/
+数据池管理/data-pool-database/.settings/

@@ -14,9 +14,9 @@ public class InterfaceDataPoolCopy {
     @ApiModelProperty("项目ID")
     private String projectId;
     @ApiModelProperty("环境ID")
-    private Long profileId;
+    private String profileId;
     @ApiModelProperty("拷贝数据ID集合")
-    private List<Long> idList;
+    private List<String> idList;
 
     public String getProjectId() {
         return projectId;
@@ -26,19 +26,19 @@ public class InterfaceDataPoolCopy {
         this.projectId = projectId;
     }
 
-    public Long getProfileId() {
+    public String getProfileId() {
         return profileId;
     }
 
-    public void setProfileId(Long profileId) {
+    public void setProfileId(String profileId) {
         this.profileId = profileId;
     }
 
-    public List<Long> getIdList() {
+    public List<String> getIdList() {
         return idList;
     }
 
-    public void setIdList(List<Long> idList) {
+    public void setIdList(List<String> idList) {
         this.idList = idList;
     }
 }

@@ -1,192 +1,207 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <parent>
-        <artifactId>atp-data-pool</artifactId>
-        <groupId>net.northking.atp</groupId>
-        <version>1.1.0-SNAPSHOT</version>
-    </parent>
-    <modelVersion>4.0.0</modelVersion>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<parent>
+		<groupId>net.northking.atp</groupId>
+		<artifactId>atp-data-pool</artifactId>
+		<version>2.1.10-SNAPSHOT</version>
+	</parent>
 
-    <artifactId>data-pool</artifactId>
+	<modelVersion>4.0.0</modelVersion>
 
-    <packaging>jar</packaging>
+	<artifactId>data-pool</artifactId>
+	<packaging>jar</packaging>
 
- <!--  
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<java.version>1.8</java.version>
+		<maven-jar-plugin.version>3.1.1</maven-jar-plugin.version>
+		<maven-resources-plugin.version>3.0.1</maven-resources-plugin.version>
+	</properties>
 
-
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <version>2.20.1</version>
-                <configuration>
-                    <skip>true</skip>
-                </configuration>
-            </plugin>
-
-          <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-                <version>${spring-boot.version}</version>
-                <configuration>
-                    指定该Main Class为全局的唯一入口
-                    <mainClass>net.northking.atp.DataPoolMain</mainClass>
-                    <outputDirectory>./target/</outputDirectory>
-                    <finalName>${project.name}.ms</finalName>
-                    <layout>ZIP</layout>
-                </configuration>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>repackage</goal>可以把依赖的包都打包到生成的Jar包中
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-        </plugins>
-
-
-    </build>
- -->
-    <dependencies>
-
-<!-- 
-        <dependency>
-            <groupId>net.northking.atp</groupId>
-            <artifactId>commons-swagger2</artifactId>
-            <version>${project.version}</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>com.google.guava</groupId>
-                    <artifactId>guava</artifactId>
-                </exclusion>
-            </exclusions>
-            <scope>test</scope>
-        </dependency>
-        
-         -->
-        
-        <dependency>
-            <groupId>com.google.guava</groupId>
-            <artifactId>guava</artifactId>
-            <version>20.0</version>
-        </dependency>
-
-        <dependency>
-            <groupId>net.northking.atp</groupId>
-            <artifactId>atp-db-persistent</artifactId>
-              <version>${project.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>net.northking.atp</groupId>
-            <artifactId>atp-db-service</artifactId>
-              <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>net.northking.atp</groupId>
-            <artifactId>atp-commons-http</artifactId>
-              <version>${project.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>net.northking.atp</groupId>
-            <artifactId>data-pool-database</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-
-
-<!-- 
-        <dependency>
-            <groupId>net.northking.atp</groupId>
-            <artifactId>atp-test-element-core</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>net.northking.atp</groupId>
-            <artifactId>atp-test-element-extension</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>net.northking.atp</groupId>
-            <artifactId>atp-data-rule-core</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>commons-net</groupId>
-            <artifactId>commons-net</artifactId>
-            <version>3.6</version>
-        </dependency>
-        <dependency>
-            <groupId>com.jcraft</groupId>
-            <artifactId>jsch</artifactId>
-            <version>0.1.42</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.xeustechnologies</groupId>
-            <artifactId>jcl-core</artifactId>
-            <version>2.8</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-lang3</artifactId>
-            <version>3.4</version>
-        </dependency>
-
-
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-config</artifactId>
-
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-eureka</artifactId>
-
-        </dependency>
-        <dependency>
-            <groupId>com.google.code.gson</groupId>
-            <artifactId>gson</artifactId>
-            <version>2.8.2</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-redis</artifactId>
-            <version>1.3.5.RELEASE</version>
-        </dependency>
-        
-         -->
-        
-    </dependencies>
-
+	
 
 	<build>
 		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>copy</id>
+						<phase>package</phase>
+						<goals>
+							<goal>copy-dependencies</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>${project.build.directory}/lib</outputDirectory>
+						</configuration>
+					</execution>
+				</executions>
+				<configuration>
+					<fork>true</fork>
+					<mainClass>net.northking.atp.DataPoolMain</mainClass>
+				</configuration>
+			</plugin>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
 		</plugins>
 	</build>
-    
+
+
+
+
+	<dependencies>
+
+		<dependency>
+			<groupId>net.northking.atp</groupId>
+			<artifactId>commons-swagger2</artifactId>
+			<version>2.1.10-SNAPSHOT</version>
+			<exclusions>
+				<exclusion>
+					<groupId>com.google.guava</groupId>
+					<artifactId>guava</artifactId>
+				</exclusion>
+			</exclusions>
+			<!--<scope>test</scope> -->
+		</dependency>
+		<dependency>
+			<groupId>com.google.guava</groupId>
+			<artifactId>guava</artifactId>
+			<version>20.0</version>
+		</dependency>
+
+		<dependency>
+			<groupId>net.northking.atp</groupId>
+			<artifactId>atp-db-persistent</artifactId>
+			<version>2.1.10-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>net.northking.atp</groupId>
+			<artifactId>atp-db-service</artifactId>
+			<version>2.1.10-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>net.northking.atp</groupId>
+			<artifactId>atp-commons-http</artifactId>
+			<version>2.1.10-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>net.northking.atp</groupId>
+			<artifactId>data-pool-database</artifactId>
+			<version>2.1.10-SNAPSHOT</version>
+		</dependency>
+
+		<dependency>
+			<groupId>net.northking.atp</groupId>
+			<artifactId>atp-test-element-core</artifactId>
+			<version>1.1.0-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>net.northking.atp</groupId>
+			<artifactId>atp-test-element-extension</artifactId>
+			<version>1.1.0-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>net.northking.atp</groupId>
+			<artifactId>atp-data-rule-core</artifactId>
+			<version>1.1.0-SNAPSHOT</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>commons-net</groupId>
+			<artifactId>commons-net</artifactId>
+			<version>3.6</version>
+		</dependency>
+		<dependency>
+			<groupId>com.jcraft</groupId>
+			<artifactId>jsch</artifactId>
+			<version>0.1.42</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.xeustechnologies</groupId>
+			<artifactId>jcl-core</artifactId>
+			<version>2.8</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+			<version>3.4</version>
+		</dependency>
+
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-config</artifactId>
+			<version>1.4.7.RELEASE</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-eureka</artifactId>
+			<version>1.4.7.RELEASE</version>
+		</dependency>
+		<dependency>
+			<groupId>com.google.code.gson</groupId>
+			<artifactId>gson</artifactId>
+			<version>2.8.2</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-redis</artifactId>
+			<version>1.3.5.RELEASE</version>
+		</dependency>
+		<dependency>
+			<groupId>io.swagger</groupId>
+			<artifactId>swagger-annotations</artifactId>
+			<version>1.5.20</version>
+		</dependency>
+
+		<dependency>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-swagger2</artifactId>
+			<version>2.6.1</version>
+		</dependency>
+		<dependency>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-swagger-ui</artifactId>
+			<version>2.6.1</version>
+		</dependency>
+		<dependency>
+			<groupId>net.northking.atp</groupId>
+			<artifactId>database-core</artifactId>
+			<version>1.0.24</version>
+		</dependency>
+		<dependency>
+			<groupId>net.northking.atp</groupId>
+			<artifactId>database-mybatis</artifactId>
+			<version>1.0.24</version>
+		</dependency>
+		<dependency>
+			<groupId>com.github.pagehelper</groupId>
+			<artifactId>pagehelper-spring-boot-starter</artifactId>
+			<version>1.2.3</version>
+		</dependency>
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+		</dependency>
+
+	</dependencies>
 </project>

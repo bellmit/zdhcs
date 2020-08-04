@@ -1,4 +1,6 @@
 spring:
+  main:
+    allow-bean-definition-overriding: true
   application:
     name: cloudtest-project
   jackson:
@@ -14,8 +16,7 @@ spring:
       discovery:
         enabled: true
         service-id: atp-cloud-config
-  main:
-    allow-bean-definition-overriding: true
+  
 hystrix:
   command:
     default:
@@ -32,7 +33,7 @@ eureka:
       defaultZone: http://localhost:8761/eureka
   instance:
     prefer-ip-address: true
-    instance-id: ${spring.application.name}:${spring.cloud.client.ip-address}:${spring.application.instance_id:${server.port}}
+    instance-id: ${spring.application.name}:${spring.cloud.client.ip-address}:${server.port}
 ---
 spring:
   profiles: dev
